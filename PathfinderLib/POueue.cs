@@ -1,84 +1,102 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace  Pathfinder {    
-    class PObject<T> where T: class {
+﻿namespace Pathfinder
+{
+    internal class PObject<T> 
+    {
         public T obj;
         public int priority;
         public PObject<T> prev;
         public PObject<T> next;
-        
-        public PObject(T obj, int priority) {
-            this.obj      = obj;
+
+        public PObject(T obj, int priority)
+        {
+            this.obj = obj;
             this.priority = priority;
         }
     }
 
-    public class PQueue<T> where T: class {
+    public class PQueue<T> 
+    {
         private PObject<T> start;
         public bool MinPriorityFirst { get; private set; }
         public int Count { get; private set; }
 
-        public PQueue(bool minPriorityFirst) {
+        public PQueue(bool minPriorityFirst)
+        {
             MinPriorityFirst = minPriorityFirst;
         }
-        
-        public T Dequeue() {
-            T obj = null;
-            if (start != null) {
-                obj  = start.obj;
+
+        public T Dequeue()
+        { 
+            if (start != null)
+            {
+                T obj = start.obj;
                 start = start.next;
-                if (start != null) {
+                if (start != null)
+                {
                     start.prev = null;
                 }
                 Count--;
             }
-            return obj;
+            return default(T);
         }
-        
-        public void Enqueue(T obj, int priority) {
+
+        public void Enqueue(T obj, int priority)
+        {
             PObject<T> newObject = new PObject<T>(obj, priority);
-            if (start == null) {
+            if (start == null)
+            {
                 start = newObject;
-            } else {
+            }
+            else
+            {
                 PObject<T> currentObj = MinPriorityFirst ? GetMax(priority) : GetMin(priority);
                 bool range = MinPriorityFirst ? currentObj.priority <= priority : currentObj.priority >= priority;
-                if (range) {
+                if (range)
+                {
                     SetNext(currentObj, newObject);
-                } else {
+                }
+                else
+                {
                     SetPrev(currentObj, newObject);
                 }
             }
             Count++;
         }
-        
-        private PObject<T> GetMin(int priority) {
+
+        private PObject<T> GetMin(int priority)
+        {
             PObject<T> pObj = start;
-            while (pObj.priority >= priority && (pObj.next != null && pObj.next.priority >= priority)) {
+            while (pObj.priority >= priority && (pObj.next != null && pObj.next.priority >= priority))
+            {
                 pObj = pObj.next;
             }
             return pObj;
         }
-        
-        private PObject<T> GetMax(int priority) {
+
+        private PObject<T> GetMax(int priority)
+        {
             PObject<T> pObj = start;
-            while (pObj.priority <= priority && (pObj.next != null && pObj.next.priority <= priority)) {
+            while (pObj.priority <= priority && (pObj.next != null && pObj.next.priority <= priority))
+            {
                 pObj = pObj.next;
             }
             return pObj;
         }
-        
-        private void SetNext(PObject<T> currentObj, PObject<T> newObject) {
-            newObject.prev  = currentObj;
-            newObject.next  = currentObj.next;
+
+        private void SetNext(PObject<T> currentObj, PObject<T> newObject)
+        {
+            newObject.prev = currentObj;
+            newObject.next = currentObj.next;
             currentObj.next = newObject;
         }
-            
-        private void SetPrev(PObject<T> currentObj, PObject<T> newObject) {
-            newObject.next  = currentObj;
-            newObject.prev  = currentObj.prev;
+
+        private void SetPrev(PObject<T> currentObj, PObject<T> newObject)
+        {
+            newObject.next = currentObj;
+            newObject.prev = currentObj.prev;
             currentObj.prev = newObject;
-            if (currentObj == start) {
+            if (currentObj == start)
+            {
                 start = newObject;
             }
         }
