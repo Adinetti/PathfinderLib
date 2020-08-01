@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Pathfinder
 {
@@ -34,7 +35,7 @@ namespace Pathfinder
                 {
                     if (n.IsWalkable())
                     {
-                        int cost = pathcost[root] + n.Cost;
+                        int cost = pathcost[root] + Math.Abs(n.Cost) + 1;
                         if (!pathcost.ContainsKey(n) || cost < pathcost[n])
                         {
                             pathcost[n] = cost;

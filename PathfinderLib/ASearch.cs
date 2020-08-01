@@ -1,4 +1,6 @@
-﻿namespace Pathfinder
+﻿using System;
+
+namespace Pathfinder
 {
     public class ASearch<T> : DSearch<T> where T : INode
     {
@@ -20,7 +22,7 @@
                 {
                     if (n.IsWalkable())
                     {
-                        int cost = pathcost[root] + n.Cost;
+                        int cost = pathcost[root] + Math.Abs(n.Cost) + 1;
                         if (!pathcost.ContainsKey(n) || cost < pathcost[n])
                         {
                             pathcost[n] = cost;
