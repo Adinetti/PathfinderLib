@@ -15,8 +15,8 @@ namespace Pathfinder
 
         public List<T> Search(T start, T end)
         {
-            path = new List<T>();
             parents = new Dictionary<T, T>();
+            parents[start] = start;
             if (OnInit != null && OnSearch != null)
             {
                 OnInit(start);
@@ -26,18 +26,19 @@ namespace Pathfinder
             return path;
         }
 
-        void CreatePath(T start, T end)
+        private void CreatePath(T start, T end)
         {
             T node;
             if (parents.TryGetValue(end, out node))
             {
+                path = new List<T>();
                 path.Add(end);
-                path.Add(node);
-                while (node.Equals(start))
+                while (!node.Equals(start))
                 {
-                    node = parents[node];
                     path.Add(node);
+                    node = parents[node];
                 }
+                path.Remove(start);
             }
         }
     }

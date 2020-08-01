@@ -1,24 +1,26 @@
 ﻿namespace Pathfinder
 {
-    internal class PObject<T> 
-    {
-        public T obj;
-        public int priority;
-        public PObject<T> prev;
-        public PObject<T> next;
-
-        public PObject(T obj, int priority)
-        {
-            this.obj = obj;
-            this.priority = priority;
-        }
-    }
-
     public class PQueue<T> 
     {
+        private class PObject<T> 
+        {
+            public T obj;
+            public int priority;
+            public PObject<T> prev;
+            public PObject<T> next;
+
+            public PObject(T obj, int priority)
+            {
+                this.obj = obj;
+                this.priority = priority;
+            }
+        }
+
         private PObject<T> start;
         public bool MinPriorityFirst { get; private set; }
         public int Count { get; private set; }
+
+        public PQueue() : this(true) { }
 
         public PQueue(bool minPriorityFirst)
         {
@@ -36,6 +38,7 @@
                     start.prev = null;
                 }
                 Count--;
+                return obj;
             }
             return default(T);
         }

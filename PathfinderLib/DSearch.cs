@@ -18,7 +18,7 @@ namespace Pathfinder
             fronter = new PQueue<T>(true);
             fronter.Enqueue(start, 0);
             pathcost = new Dictionary<T, int>();
-            pathcost[start] = 0;
+            pathcost[start] = 0;            
         }
 
         void SearchPath(T end)
