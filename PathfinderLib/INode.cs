@@ -7,7 +7,7 @@ namespace Pathfinder
         int Cost { get; }
         bool IsWalkable();
         int HeuristicCostTo(INode n);
-        void SetNeighbor(INode neighbor);
+        void AddNeighbor(INode neighbor);
         INode[] GetNeighbors();
     }
 }

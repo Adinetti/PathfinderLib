@@ -50,7 +50,7 @@ namespace PathfinderLib.Tests
             return isWalkable;
         }
 
-        public void SetNeighbor(INode neighbor)
+        public void AddNeighbor(INode neighbor)
         {
             if (neighbor is Tile)
             {
@@ -82,11 +82,11 @@ namespace PathfinderLib.Tests
                     tiles[x + (y * 10)] = new Tile(x, y, walkable);
                     if (x > 0)
                     {
-                        tiles[x + (y * 10)].SetNeighbor(tiles[x - 1 + (y * 10)]);
+                        tiles[x + (y * 10)].AddNeighbor(tiles[x - 1 + (y * 10)]);
                     }
                     if (y > 0)
                     {
-                        tiles[x + (y * 10)].SetNeighbor(tiles[x + ((y - 1) * 10)]);
+                        tiles[x + (y * 10)].AddNeighbor(tiles[x + ((y - 1) * 10)]);
                     }
                 }
             }
