@@ -2,7 +2,7 @@
 
 namespace Pathfinder
 {
-    public class BFS<T> : Pathfinder<T> where T : INode
+    public class BFS<T> : Pathfinder<T> where T : INode<T>
     {
         private Queue<T> fronter;
         private List<T> visited;

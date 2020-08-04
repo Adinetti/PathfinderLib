@@ -2,12 +2,12 @@
 
 namespace Pathfinder
 {
-    public interface INode
+    public interface INode<T>  where T : INode<T>
     {
         int Cost { get; }
         bool IsWalkable();
-        int HeuristicCostTo(INode n);
-        void AddNeighbor(INode neighbor);
-        INode[] GetNeighbors();
-    }
+        int HeuristicCostTo(T n);
+        void AddNeighbor(T neighbor);
+        T[] GetNeighbors();
+    }    
 }

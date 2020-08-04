@@ -4,20 +4,20 @@ using System.Collections.Generic;
 
 namespace PathfinderLib.Tests
 {
-    internal class Tile : INode
+    internal class Tile : INode<Tile>
     {
         public int X { get; private set; }
         public int Y { get; private set; }
 
         private bool isWalkable;
-        protected List<INode> neighbors;
+        protected List<Tile> neighbors;
 
         public Tile(int x, int y, bool isWalkable)
         {
             X = x;
             Y = y;
             this.isWalkable = isWalkable;
-            neighbors = new List<INode>();
+            neighbors = new List<Tile>();
         }
 
 
@@ -29,12 +29,12 @@ namespace PathfinderLib.Tests
             }
         }
 
-        public INode[] GetNeighbors()
+        public Tile[] GetNeighbors()
         {
             return neighbors.ToArray();
         }
 
-        public int HeuristicCostTo(INode neighbor)
+        public int HeuristicCostTo(Tile neighbor)
         {
             if (neighbor is Tile)
             {
@@ -50,12 +50,12 @@ namespace PathfinderLib.Tests
             return isWalkable;
         }
 
-        public void AddNeighbor(INode neighbor)
+        public void AddNeighbor(Tile neighbor)
         {
             if (neighbor is Tile)
             {
                 neighbors.Add(neighbor);
-                ((Tile)neighbor).neighbors.Add(this);
+                neighbor.neighbors.Add(this);
             }
         }
 

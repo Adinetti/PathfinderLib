@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Pathfinder
 {
-    public class DSearch<T> : Pathfinder<T> where T : INode
+    public class DSearch<T> : Pathfinder<T> where T : INode<T>
     {
         protected PQueue<T> fronter;
         protected Dictionary<T, int> pathcost;

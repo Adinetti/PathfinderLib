@@ -2,20 +2,21 @@
 
 namespace Pathfinder
 {
-    public abstract class Pathfinder<T> where T : INode
+
+    public abstract class Pathfinder<T1> where T1 : INode<T1>
     {
-        protected delegate void InitDelegate(T start);
+        protected delegate void InitDelegate(T1 start);
         protected event InitDelegate OnInit;
 
-        protected delegate void SearchDelegate(T end);
+        protected delegate void SearchDelegate(T1 end);
         protected event SearchDelegate OnSearch;
 
-        protected List<T> path;
-        protected Dictionary<T, T> parents;
+        protected List<T1> path;
+        protected Dictionary<T1, T1> parents;
 
-        public List<T> Search(T start, T end)
+        public List<T1> Search(T1 start, T1 end)
         {
-            parents = new Dictionary<T, T>();
+            parents = new Dictionary<T1, T1>();
             parents[start] = start;
             if (OnInit != null && OnSearch != null)
             {
@@ -26,12 +27,12 @@ namespace Pathfinder
             return path;
         }
 
-        private void CreatePath(T start, T end)
+        private void CreatePath(T1 start, T1 end)
         {
-            T node;
+            T1 node;
             if (parents.TryGetValue(end, out node))
             {
-                path = new List<T>();
+                path = new List<T1>();
                 path.Add(end);
                 while (!node.Equals(start))
                 {

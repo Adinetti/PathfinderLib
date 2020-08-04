@@ -2,7 +2,7 @@
 
 namespace Pathfinder
 {
-    public class ASearch<T> : DSearch<T> where T : INode
+    public class ASearch<T> : DSearch<T> where T : INode<T>
     {
         public ASearch() : base()
         {
