@@ -9,7 +9,7 @@ namespace Pathfinder
             OnSearch += SearchPath;
         }
 
-        void SearchPath(T end)
+        private void SearchPath(T end)
         {
             while (fronter.Count > 0)
             {

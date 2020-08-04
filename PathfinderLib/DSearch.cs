@@ -22,7 +22,7 @@ namespace Pathfinder
             pathcost[start] = 0;            
         }
 
-        void SearchPath(T end)
+        private void SearchPath(T end)
         {
             while (fronter.Count > 0)
             {

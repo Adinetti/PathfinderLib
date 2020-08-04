@@ -13,7 +13,7 @@ namespace Pathfinder
             OnSearch += SearchPath;
         }
 
-        void Init(T start)
+        private void Init(T start)
         {
             fronter = new Queue<T>();
             fronter.Enqueue(start);
