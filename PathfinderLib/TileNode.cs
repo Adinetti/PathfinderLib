@@ -6,15 +6,21 @@ namespace PathfinderLib
 {
     public class TileNode : INode<TileNode>
     {
-        protected List<TileNode> neighbors;
+        List<TileNode> neighbors;
         public int X { get; protected set; }
         public int Y { get; protected set; }
-        public virtual int Cost { get => 1; }
 
-        public TileNode(int x, int y) 
+        protected bool walkable;
+        protected int cost;
+        public virtual int Cost { get => cost; }
+
+        public TileNode(int x, int y, int cost, bool walkable) 
         {
             X = x;
             Y = y;
+            this.cost = cost;
+            this.walkable = walkable;
+            neighbors = new List<TileNode>();
         }
 
         public void AddNeighbor(TileNode neighbor)
@@ -23,7 +29,12 @@ namespace PathfinderLib
             {
                 neighbors = new List<TileNode>();
             }
+            if (neighbors.Contains(neighbor))
+            {
+                return;
+            }
             neighbors.Add(neighbor);
+            neighbor.AddNeighbor(this);
         }
 
         public TileNode[] GetNeighbors()
@@ -36,9 +47,9 @@ namespace PathfinderLib
             return (int)Math.Sqrt(Math.Pow(X + n.X, 2) + Math.Pow(Y + n.Y, 2));
         }
 
-        public virtual bool IsWalkable()
+        public bool IsWalkable()
         {
-            return true;
+            return walkable;
         }
     }
 }

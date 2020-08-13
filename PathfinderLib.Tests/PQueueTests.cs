@@ -20,7 +20,7 @@ namespace PathfinderLib.Tests
             int expectCount = 1;
             queue = new PQueue<TileNode>();
 
-            queue.Enqueue(new TileNode(0, 0), 0);
+            queue.Enqueue(fixture.Create<TileNode>(), 0);
             int actualeCount = queue.Count;
 
             Assert.AreEqual(expectCount, actualeCount);
@@ -32,7 +32,7 @@ namespace PathfinderLib.Tests
             int expectedCount = 0;
             queue = new PQueue<TileNode>();
 
-            queue.Enqueue(new TileNode(0, 0), 1);
+            queue.Enqueue(fixture.Create<TileNode>(), 1);
             queue.Dequeue();
             int actualeCount = queue.Count;
 
@@ -45,9 +45,9 @@ namespace PathfinderLib.Tests
             TileNode expectedTile = fixture.Create<TileNode>();
             queue = new PQueue<TileNode>();
 
-            queue.Enqueue(new TileNode(0, 0), 1);
+            queue.Enqueue(fixture.Create<TileNode>(), 1);
             queue.Enqueue(expectedTile, 0);
-            queue.Enqueue(new TileNode(1, 0), 0);
+            queue.Enqueue(fixture.Create<TileNode>(), 0);
             TileNode actualeTile = queue.Dequeue();
 
             Assert.AreEqual(expectedTile, actualeTile);
@@ -60,8 +60,8 @@ namespace PathfinderLib.Tests
             queue = new PQueue<TileNode>();
 
             queue.Enqueue(expectedTile, 0);
-            queue.Enqueue(new TileNode(0, 0), 0);
-            queue.Enqueue(new TileNode(1, 0), 0);
+            queue.Enqueue(fixture.Create<TileNode>(), 0);
+            queue.Enqueue(fixture.Create<TileNode>(), 0);
             TileNode actualeTile = queue.Dequeue();
 
             Assert.AreEqual(expectedTile, actualeTile);
