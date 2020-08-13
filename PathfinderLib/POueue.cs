@@ -1,4 +1,4 @@
-﻿namespace Pathfinder
+﻿namespace PathfinderLib
 {
     public class PQueue<T> 
     {

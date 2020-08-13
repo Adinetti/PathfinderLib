@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace Pathfinder
+namespace PathfinderLib
 {
-
     public abstract class Pathfinder<T1> where T1 : INode<T1>
     {
         protected delegate void InitDelegate(T1 start);

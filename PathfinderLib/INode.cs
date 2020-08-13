@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pathfinder
+namespace PathfinderLib
 {
     /// <summary>
     /// T must be same type that corrent impementation this interface

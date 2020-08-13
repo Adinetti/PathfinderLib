@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pathfinder
+namespace PathfinderLib
 {
     public class BFS<T> : Pathfinder<T> where T : INode<T>
     {

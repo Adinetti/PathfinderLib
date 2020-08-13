@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pathfinder
+namespace PathfinderLib
 {
     public class DSearch<T> : Pathfinder<T> where T : INode<T>
     {
@@ -39,7 +39,7 @@ namespace Pathfinder
                         if (!pathcost.ContainsKey(n) || cost < pathcost[n])
                         {
                             pathcost[n] = cost;
-                            fronter.Enqueue(n, cost + end.HeuristicCostTo(n));
+                            fronter.Enqueue(n, cost);
                             parents[n] = root;
                         }
                     }
