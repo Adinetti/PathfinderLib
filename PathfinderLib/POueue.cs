@@ -1,107 +1,68 @@
-﻿namespace PathfinderLib
+﻿using System;
+using System.Collections.Generic;
+
+namespace PathfinderLib
 {
-    public class PQueue<T> 
-    {
-        private class PObject<T> 
+    public class PQueue<T> where T : INode<T>
+    { 
+        private struct PObject<T> : IComparable where T : INode<T> 
         {
             public T obj;
             public int priority;
-            public PObject<T> prev;
-            public PObject<T> next;
-
             public PObject(T obj, int priority)
             {
                 this.obj = obj;
                 this.priority = priority;
             }
+
+            public int CompareTo(object obj)
+            {
+                if (obj is PObject<T>) 
+                {
+                    PObject<T> pObject = (PObject<T>)obj;
+                    if (pObject.priority >= priority)
+                    {
+                        if (pObject.priority == priority)
+                        {
+                            return 0;
+                        }
+                        return -1;
+                    }
+                    return 1;
+                }
+                throw new Exception("Compare impossible");
+            }
         }
 
-        private PObject<T> start;
-        public bool MinPriorityFirst { get; private set; }
-        public int Count { get; private set; }
+        private readonly List<PObject<T>> queue;
+        public int Count 
+        { 
+            get
+            {
+                return queue.Count;
+            }
+        }
 
-        public PQueue() : this(true) { }
-
-        public PQueue(bool minPriorityFirst)
+        public PQueue()
         {
-            MinPriorityFirst = minPriorityFirst;
+            queue = new List<PObject<T>>();
         }
 
         public T Dequeue()
         { 
-            if (start != null)
+            if (queue.Count > 0)
             {
-                T obj = start.obj;
-                start = start.next;
-                if (start != null)
-                {
-                    start.prev = null;
-                }
-                Count--;
+                T obj = queue[0].obj;
+                queue.RemoveAt(0);
                 return obj;
             }
-            return default(T);
+            return default;
         }
 
         public void Enqueue(T obj, int priority)
         {
-            PObject<T> newObject = new PObject<T>(obj, priority);
-            if (start == null)
-            {
-                start = newObject;
-            }
-            else
-            {
-                PObject<T> currentObj = MinPriorityFirst ? GetMax(priority) : GetMin(priority);
-                bool range = MinPriorityFirst ? currentObj.priority <= priority : currentObj.priority >= priority;
-                if (range)
-                {
-                    SetNext(currentObj, newObject);
-                }
-                else
-                {
-                    SetPrev(currentObj, newObject);
-                }
-            }
-            Count++;
-        }
-
-        private PObject<T> GetMin(int priority)
-        {
-            PObject<T> pObj = start;
-            while (pObj.priority >= priority && (pObj.next != null && pObj.next.priority >= priority))
-            {
-                pObj = pObj.next;
-            }
-            return pObj;
-        }
-
-        private PObject<T> GetMax(int priority)
-        {
-            PObject<T> pObj = start;
-            while (pObj.priority <= priority && (pObj.next != null && pObj.next.priority <= priority))
-            {
-                pObj = pObj.next;
-            }
-            return pObj;
-        }
-
-        private void SetNext(PObject<T> currentObj, PObject<T> newObject)
-        {
-            newObject.prev = currentObj;
-            newObject.next = currentObj.next;
-            currentObj.next = newObject;
-        }
-
-        private void SetPrev(PObject<T> currentObj, PObject<T> newObject)
-        {
-            newObject.next = currentObj;
-            newObject.prev = currentObj.prev;
-            currentObj.prev = newObject;
-            if (currentObj == start)
-            {
-                start = newObject;
-            }
+            queue.Add(new PObject<T>(obj, priority));
+            queue.Sort();
         }
     }
 }

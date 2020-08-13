@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PathfinderLib
 {
@@ -11,6 +10,12 @@ namespace PathfinderLib
         public int X { get; protected set; }
         public int Y { get; protected set; }
         public virtual int Cost { get => 1; }
+
+        public TileNode(int x, int y) 
+        {
+            X = x;
+            Y = y;
+        }
 
         public void AddNeighbor(TileNode neighbor)
         {

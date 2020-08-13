@@ -16,10 +16,12 @@ namespace PathfinderLib
 
         protected void Init(T start)
         {
-            fronter = new PQueue<T>(true);
+            fronter = new PQueue<T>();
             fronter.Enqueue(start, 0);
-            pathcost = new Dictionary<T, int>();
-            pathcost[start] = 0;            
+            pathcost = new Dictionary<T, int>
+            {
+                [start] = 0
+            };
         }
 
         private void SearchPath(T end)
