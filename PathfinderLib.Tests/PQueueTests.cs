@@ -1,22 +1,18 @@
 ﻿using AutoFixture;
 using NUnit.Framework;
 
-namespace PathfinderLib.Tests
-{
-    class PQueueTests
-    {
+namespace PathfinderLib.Tests {
+    class PQueueTests {
         PQueue<TileNode> queue;
         Fixture fixture;
 
         [SetUp]
-        public void Setup()
-        {
+        public void Setup() {
             fixture = new Fixture();
         }
 
         [Test]
-        public void Count_should_become_greater_after_Enqueue()
-        {
+        public void Count_should_become_greater_after_Enqueue() {
             int expectCount = 1;
             queue = new PQueue<TileNode>();
 
@@ -27,8 +23,7 @@ namespace PathfinderLib.Tests
         }
 
         [Test]
-        public void Count_should_become_less_after_Dequeue()
-        {
+        public void Count_should_become_less_after_Dequeue() {
             int expectedCount = 0;
             queue = new PQueue<TileNode>();
 
@@ -40,8 +35,7 @@ namespace PathfinderLib.Tests
         }
 
         [Test]
-        public void Dequeue_should_return_first_object_with_lowest_priority()
-        {
+        public void Dequeue_should_return_first_object_with_lowest_priority() {
             TileNode expectedTile = fixture.Create<TileNode>();
             queue = new PQueue<TileNode>();
 
@@ -54,8 +48,7 @@ namespace PathfinderLib.Tests
         }
 
         [Test]
-        public void Dequeue_should_return_first_come_object_if_all_objects_has_same_priority()
-        {
+        public void Dequeue_should_return_first_come_object_if_all_objects_has_same_priority() {
             TileNode expectedTile = fixture.Create<TileNode>();
             queue = new PQueue<TileNode>();
 

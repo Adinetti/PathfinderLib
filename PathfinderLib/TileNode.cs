@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
-namespace PathfinderLib
-{
-    public class TileNode : INode<TileNode>
-    {
+namespace PathfinderLib {
+    public class TileNode : INode<TileNode> {
         List<TileNode> neighbors;
         public int X { get; protected set; }
         public int Y { get; protected set; }
@@ -14,8 +11,7 @@ namespace PathfinderLib
         protected int cost;
         public virtual int Cost { get => cost; }
 
-        public TileNode(int x, int y, int cost, bool walkable) 
-        {
+        public TileNode(int x, int y, int cost, bool walkable) {
             X = x;
             Y = y;
             this.cost = cost;
@@ -23,32 +19,26 @@ namespace PathfinderLib
             neighbors = new List<TileNode>();
         }
 
-        public void AddNeighbor(TileNode neighbor)
-        {
-            if (neighbors == null)
-            {
+        public void AddNeighbor(TileNode neighbor) {
+            if (neighbors == null) {
                 neighbors = new List<TileNode>();
             }
-            if (neighbors.Contains(neighbor))
-            {
+            if (neighbors.Contains(neighbor)) {
                 return;
             }
             neighbors.Add(neighbor);
             neighbor.AddNeighbor(this);
         }
 
-        public TileNode[] GetNeighbors()
-        {
+        public TileNode[] GetNeighbors() {
             return neighbors.ToArray();
         }
 
-        public int HeuristicCostTo(TileNode n)
-        {
+        public int HeuristicCostTo(TileNode n) {
             return (int)Math.Sqrt(Math.Pow(X + n.X, 2) + Math.Pow(Y + n.Y, 2));
         }
 
-        public bool IsWalkable()
-        {
+        public bool IsWalkable() {
             return walkable;
         }
     }

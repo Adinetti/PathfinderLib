@@ -1,45 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PathfinderLib
-{
-    public class DSearch<T> : Pathfinder<T> where T : INode<T>
-    {
+namespace PathfinderLib {
+    public class DSearch<T> : Pathfinder<T> where T : INode<T> {
         protected PQueue<T> fronter;
         protected Dictionary<T, int> pathcost;
 
-        public DSearch()
-        {
+        public DSearch() {
             OnInit += Init;
             OnSearch += SearchPath;
         }
 
-        protected void Init(T start)
-        {
+        protected void Init(T start) {
             fronter = new PQueue<T>();
             fronter.Enqueue(start, 0);
-            pathcost = new Dictionary<T, int>
-            {
+            pathcost = new Dictionary<T, int> {
                 [start] = 0
             };
         }
 
-        private void SearchPath(T end)
-        {
-            while (fronter.Count > 0)
-            {
+        private void SearchPath(T end) {
+            while (fronter.Count > 0) {
                 T root = fronter.Dequeue();
-                if (root.Equals(end))
-                {
+                if (root.Equals(end)) {
                     break;
                 }
-                foreach (T n in root.GetNeighbors())
-                {
-                    if (n.IsWalkable())
-                    {
+                foreach (T n in root.GetNeighbors()) {
+                    if (n.IsWalkable()) {
                         int cost = pathcost[root] + Math.Abs(n.Cost) + 1;
-                        if (!pathcost.ContainsKey(n) || cost < pathcost[n])
-                        {
+                        if (!pathcost.ContainsKey(n) || cost < pathcost[n]) {
                             pathcost[n] = cost;
                             fronter.Enqueue(n, cost);
                             parents[n] = root;

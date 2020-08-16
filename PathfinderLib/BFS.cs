@@ -1,20 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace PathfinderLib
-{
-    public class BFS<T> : Pathfinder<T> where T : INode<T>
-    {
+namespace PathfinderLib {
+    public class BFS<T> : Pathfinder<T> where T : INode<T> {
         private Queue<T> fronter;
         private List<T> visited;
 
-        public BFS()
-        {
+        public BFS() {
             OnInit += Init;
             OnSearch += SearchPath;
         }
 
-        private void Init(T start)
-        {
+        private void Init(T start) {
             fronter = new Queue<T>();
             fronter.Enqueue(start);
             visited = new List<T>
@@ -23,19 +19,14 @@ namespace PathfinderLib
             };
         }
 
-        private void SearchPath(T end)
-        {
-            while (fronter.Count > 0)
-            {
+        private void SearchPath(T end) {
+            while (fronter.Count > 0) {
                 T root = fronter.Dequeue();
-                if (root.Equals(end))
-                {
+                if (root.Equals(end)) {
                     break;
                 }
-                foreach (T n in root.GetNeighbors())
-                {
-                    if (n.IsWalkable() && !visited.Contains(n))
-                    {
+                foreach (T n in root.GetNeighbors()) {
+                    if (n.IsWalkable() && !visited.Contains(n)) {
                         parents.Add(n, root);
                         visited.Add(n);
                         fronter.Enqueue(n);
