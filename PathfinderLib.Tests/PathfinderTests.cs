@@ -26,13 +26,14 @@ namespace PathfinderLib.Tests {
             }
         }
 
-        public void CreatePath_should_return_null_for_unreachable_tile(Pathfinder<TileNode> pathfinder) {
+        public void CreatePath_should_return_empty_list_for_unreachable_tile(Pathfinder<TileNode> pathfinder) {
             TileNode start = fixture.Create<TileNode>();
             TileNode end = fixture.Create<TileNode>();
+            int expectedSize = 0;
 
-            List<TileNode> actualPath = pathfinder.Search(start, end);
+            int actualSize = pathfinder.Search(start, end).Count;
 
-            Assert.IsNull(actualPath);
+            Assert.AreEqual(expectedSize, actualSize);
         }
 
         public void CreatePath_return_list_with_count_equal_length_of_shortest_path(Pathfinder<TileNode> pathfinder) {

@@ -12,6 +12,7 @@ namespace PathfinderLib {
         protected Dictionary<T1, T1> parents;
 
         public List<T1> Search(T1 start, T1 end) {
+            path = new List<T1>();
             parents = new Dictionary<T1, T1> {
                 [start] = start
             };
@@ -26,10 +27,7 @@ namespace PathfinderLib {
         private void CreatePath(T1 start, T1 end) {
             T1 node;
             if (parents.TryGetValue(end, out node)) {
-                path = new List<T1>
-                {
-                    end
-                };
+                path.Add(end);
                 while (!node.Equals(start)) {
                     path.Add(node);
                     node = parents[node];

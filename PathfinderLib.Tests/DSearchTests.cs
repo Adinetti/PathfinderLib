@@ -13,7 +13,7 @@ namespace PathfinderLib.Tests {
 
         [Test]
         public void CreatePath_should_return_null_for_unreachable_tile() {
-            tests.CreatePath_should_return_null_for_unreachable_tile(dSearch);
+            tests.CreatePath_should_return_empty_list_for_unreachable_tile(dSearch);
         }
 
         [Test]
