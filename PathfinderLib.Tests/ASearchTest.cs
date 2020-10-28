@@ -22,7 +22,7 @@ namespace PathfinderLib.Tests {
         }
 
         [Test]
-        public void CreatePath_return_list_with_count_equal_zero_if_start_and_end_is_same_node() {
+        public void CreatePath_return_list_with_count_equal_one_if_start_and_end_is_same_node() {
             tests.CreatePath_return_list_with_count_equal_one_if_start_and_end_is_same_node(aSearch);
         }
     }
