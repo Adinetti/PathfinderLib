@@ -26,7 +26,7 @@ namespace PathfinderLib.Tests {
             }
         }
 
-        public void CreatePath_should_return_empty_list_for_unreachable_tile(Pathfinder<TileNode> pathfinder) {
+        public void CreatePath_should_return_list_with_zero_size_for_unreachable_tile(Pathfinder<TileNode> pathfinder) {
             TileNode start = fixture.Create<TileNode>();
             TileNode end = fixture.Create<TileNode>();
             int expectedSize = 0;
@@ -39,17 +39,17 @@ namespace PathfinderLib.Tests {
         public void CreatePath_return_list_with_count_equal_length_of_shortest_path(Pathfinder<TileNode> pathfinder) {
             TileNode start = tiles[0];
             TileNode end = tiles[widthMap - 1];
-            int expectedLength = widthMap - 1;
+            int expectedLength = widthMap;
 
             int actualLength = pathfinder.Search(start, end).Count;
 
             Assert.AreEqual(expectedLength, actualLength);
         }
 
-        public void CreatePath_return_list_with_count_equal_zero_if_start_and_end_is_same_node(Pathfinder<TileNode> pathfinder) {
+        public void CreatePath_return_list_with_count_equal_one_if_start_and_end_is_same_node(Pathfinder<TileNode> pathfinder) {
             TileNode start = tiles[0];
             TileNode end = start;
-            int expectedLength = 0;
+            int expectedLength = 1;
 
             int actualLength = pathfinder.Search(start, end).Count;
 

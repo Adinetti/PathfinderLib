@@ -13,9 +13,8 @@ namespace PathfinderLib {
 
         public List<T1> Search(T1 start, T1 end) {
             path = new List<T1>();
-            parents = new Dictionary<T1, T1> {
-                [start] = start
-            };
+            parents = new Dictionary<T1, T1>();
+            parents[start] = start;
             if (OnInit != null && OnSearch != null) {
                 OnInit(start);
                 OnSearch(end);
@@ -28,11 +27,10 @@ namespace PathfinderLib {
             T1 node;
             if (parents.TryGetValue(end, out node)) {
                 path.Add(end);
-                while (!node.Equals(start)) {
+                while (path.Contains(start) == false) {
                     path.Add(node);
                     node = parents[node];
-                }
-                path.Remove(start);
+                }                
             }
         }
     }

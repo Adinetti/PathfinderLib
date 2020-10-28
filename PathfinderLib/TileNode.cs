@@ -41,5 +41,9 @@ namespace PathfinderLib {
         public bool IsWalkable() {
             return walkable;
         }
+
+        public bool IsNeighborTo(TileNode sector) {
+            return neighbors.Contains(sector);
+        }
     }
 }

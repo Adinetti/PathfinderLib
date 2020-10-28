@@ -11,5 +11,6 @@ namespace PathfinderLib {
         int HeuristicCostTo(T n);
         void AddNeighbor(T neighbor);
         T[] GetNeighbors();
+        bool IsNeighborTo(T sector);
     }
 }

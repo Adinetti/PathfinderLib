@@ -12,8 +12,8 @@ namespace PathfinderLib.Tests {
         }
 
         [Test]
-        public void CreatePath_should_return_null_for_unreachable_tile() {
-            tests.CreatePath_should_return_empty_list_for_unreachable_tile(bfs);
+        public void CreatePath_should_return_list_with_zero_size_for_unreachable_tile() {
+            tests.CreatePath_should_return_list_with_zero_size_for_unreachable_tile(bfs);
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace PathfinderLib.Tests {
 
         [Test]
         public void CreatePath_return_list_with_count_equal_zero_if_start_and_end_is_same_node() {
-            tests.CreatePath_return_list_with_count_equal_zero_if_start_and_end_is_same_node(bfs);
+            tests.CreatePath_return_list_with_count_equal_one_if_start_and_end_is_same_node(bfs);
         }
     }
 }
