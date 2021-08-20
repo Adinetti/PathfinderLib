@@ -44,9 +44,11 @@
     <Compile Include="ASearch.cs" />
     <Compile Include="BFS.cs" />
     <Compile Include="DSearch.cs" />
+    <Compile Include="IAgent.cs" />
+    <Compile Include="IGraph.cs" />
     <Compile Include="INode.cs" />
     <Compile Include="Pathfinder.cs" />
-    <Compile Include="POueue.cs" />
+    <Compile Include="PQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TileNode.cs" />
   </ItemGroup>

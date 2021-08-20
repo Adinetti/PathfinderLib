@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+//using Priority_Queue;
 
 namespace PathfinderLib {
+    [Serializable]
     public class DSearch<T> : Pathfinder<T> where T : INode<T> {
-        protected PQueue<T> fronter;
+        [NonSerialized] protected PQueue<T> fronter;
         protected Dictionary<T, int> pathcost;
 
         public DSearch() {
@@ -14,8 +16,9 @@ namespace PathfinderLib {
         protected void Init(T start) {
             fronter = new PQueue<T>();
             fronter.Enqueue(start, 0);
-            pathcost = new Dictionary<T, int>();
-            pathcost[start] = 0;
+            pathcost = new Dictionary<T, int> {
+                [start] = 0
+            };
         }
 
         private void SearchPath(T end) {
@@ -24,9 +27,11 @@ namespace PathfinderLib {
                 if (root.Equals(end)) {
                     break;
                 }
-                foreach (T n in root.GetNeighbors()) {
-                    if (n.IsWalkable()) {
-                        int cost = pathcost[root] + Math.Abs(n.Cost) + 1;
+                int neighbors = graph.CountOfNeighbors(root);
+                for (int i = 0; i < neighbors; i++) {
+                    var n = graph.GetNeighbor(root, i);
+                    if (n.IsWalkableFor(agent)) {
+                        int cost = pathcost[root] + Math.Abs(n.CostFor(agent)) + 1;
                         if (!pathcost.ContainsKey(n) || cost < pathcost[n]) {
                             pathcost[n] = cost;
                             fronter.Enqueue(n, cost);

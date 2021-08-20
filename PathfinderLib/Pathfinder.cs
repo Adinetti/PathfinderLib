@@ -1,20 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PathfinderLib {
-    public abstract class Pathfinder<T1> where T1 : INode<T1> {
-        protected delegate void InitDelegate(T1 start);
-        protected event InitDelegate OnInit;
+    [System.Serializable]
+    public abstract class Pathfinder<T> where T : INode<T> {
+        protected event Action<T> OnInit;
+        protected event Action<T> OnSearch;
 
-        protected delegate void SearchDelegate(T1 end);
-        protected event SearchDelegate OnSearch;
+        protected List<T> path;
+        protected Dictionary<T, T> parents;
+        protected IAgent agent;
+        protected IGraph<T> graph;
 
-        protected List<T1> path;
-        protected Dictionary<T1, T1> parents;
-
-        public List<T1> Search(T1 start, T1 end) {
-            path = new List<T1>();
-            parents = new Dictionary<T1, T1>();
-            parents[start] = start;
+        public List<T> Search(IAgent agent, T start, T end, IGraph<T> graph) {
+            this.agent = agent;
+            path = new List<T>();
+            this.graph = graph;
+            parents = new Dictionary<T, T> {
+                [start] = start
+            };
             if (OnInit != null && OnSearch != null) {
                 OnInit(start);
                 OnSearch(end);
@@ -23,14 +27,13 @@ namespace PathfinderLib {
             return path;
         }
 
-        private void CreatePath(T1 start, T1 end) {
-            T1 node;
-            if (parents.TryGetValue(end, out node)) {
+        private void CreatePath(T start, T end) {
+            if (parents.TryGetValue(end, out T node)) {
                 path.Add(end);
                 while (path.Contains(start) == false) {
                     path.Add(node);
                     node = parents[node];
-                }                
+                }
             }
         }
     }

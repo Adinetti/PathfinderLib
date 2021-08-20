@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace PathfinderLib {
+    [Serializable]
     public class ASearch<T> : DSearch<T> where T : INode<T> {
         public ASearch() : base() {
             OnSearch += SearchPath;
@@ -12,9 +13,11 @@ namespace PathfinderLib {
                 if (root.Equals(end)) {
                     break;
                 }
-                foreach (T n in root.GetNeighbors()) {
-                    if (n.IsWalkable()) {
-                        int cost = pathcost[root] + Math.Abs(n.Cost) + 1;
+                int neighbors = graph.CountOfNeighbors(root);
+                for (int i = 0; i < neighbors; i++) {
+                    var n = graph.GetNeighbor(root, i);
+                    if (n.IsWalkableFor(agent)) {
+                        int cost = pathcost[root] + Math.Abs(n.CostFor(agent)) + 1;
                         if (!pathcost.ContainsKey(n) || cost < pathcost[n]) {
                             pathcost[n] = cost;
                             fronter.Enqueue(n, cost + end.HeuristicCostTo(n));
