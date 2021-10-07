@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-//using Priority_Queue;
 
 namespace PathfinderLib {
     [Serializable]
-    public class DSearch<T> : Pathfinder<T> where T : INode<T> {
+    public class DSearch<T> : Pathfinder<T> where T : INode {
         [NonSerialized] protected PQueue<T> fronter;
         protected Dictionary<T, int> pathcost;
 
@@ -29,7 +28,7 @@ namespace PathfinderLib {
                 }
                 int neighbors = graph.CountOfNeighbors(root);
                 for (int i = 0; i < neighbors; i++) {
-                    var n = graph.GetNeighbor(root, i);
+                    var n = graph.GetNeighborFor(root, i);
                     if (n.IsWalkableFor(agent)) {
                         int cost = pathcost[root] + Math.Abs(n.CostFor(agent)) + 1;
                         if (!pathcost.ContainsKey(n) || cost < pathcost[n]) {

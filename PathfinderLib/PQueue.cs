@@ -3,35 +3,35 @@ using System.Collections.Generic;
 
 namespace PathfinderLib {
     [Serializable]
-    public class PQueue<T> where T : INode<T> {
-        private List<Tuple<T, float>> elements;
+    public class PQueue<T> where T : INode {
+        private List<Tuple<T, float>> _elements;
 
-        public int Count => elements.Count;
+        public int Count => _elements.Count;
 
         public PQueue() {
-            elements = new List<Tuple<T, float>>();
+            _elements = new List<Tuple<T, float>>();
         }
 
         public void Enqueue(T node, float priority) {
-            elements.Add(Tuple.Create(node, priority));
+            _elements.Add(Tuple.Create(node, priority));
         }
 
         public T Dequeue() {
             int bestIndex = 0;
 
-            for (int i = 0; i < elements.Count; i++) {
-                if (elements[i].Item2 < elements[bestIndex].Item2) {
+            for (int i = 0; i < _elements.Count; i++) {
+                if (_elements[i].Item2 < _elements[bestIndex].Item2) {
                     bestIndex = i;
                 }
             }
 
-            T bestItem = elements[bestIndex].Item1;
-            elements.RemoveAt(bestIndex);
+            T bestItem = _elements[bestIndex].Item1;
+            _elements.RemoveAt(bestIndex);
             return bestItem;
         }
 
         public void Clear() {
-            elements = new List<Tuple<T, float>>();
+            _elements = new List<Tuple<T, float>>();
         }
     }
 }

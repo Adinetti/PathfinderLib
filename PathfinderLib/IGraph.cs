@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PathfinderLib {
-    public interface IGraph<T> where T : INode<T> {
+    public interface IGraph<T> where T : INode {
         int CountOfNeighbors(T node);
-        T GetNeighbor(T node, int order);
+        T GetNeighborFor(T node, int neighborIndex);
+        int HeuristicCost(INode start, INode end);
     }
 }

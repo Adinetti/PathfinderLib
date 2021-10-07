@@ -2,7 +2,7 @@
 
 namespace PathfinderLib {
     [Serializable]
-    public class ASearch<T> : DSearch<T> where T : INode<T> {
+    public class ASearch<T> : DSearch<T> where T : INode {
         public ASearch() : base() {
             OnSearch += SearchPath;
         }
@@ -15,12 +15,13 @@ namespace PathfinderLib {
                 }
                 int neighbors = graph.CountOfNeighbors(root);
                 for (int i = 0; i < neighbors; i++) {
-                    var n = graph.GetNeighbor(root, i);
+                    var n = graph.GetNeighborFor(root, i);
                     if (n.IsWalkableFor(agent)) {
                         int cost = pathcost[root] + Math.Abs(n.CostFor(agent)) + 1;
                         if (!pathcost.ContainsKey(n) || cost < pathcost[n]) {
                             pathcost[n] = cost;
-                            fronter.Enqueue(n, cost + end.HeuristicCostTo(n));
+                            var heuristicCost = graph.HeuristicCost(n, end);
+                            fronter.Enqueue(n, cost + heuristicCost);
                             parents[n] = root;
                         }
                     }

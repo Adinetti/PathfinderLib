@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 
 namespace PathfinderLib {
-    [System.Serializable]
-    public abstract class Pathfinder<T> where T : INode<T> {
+    [Serializable]
+    public abstract class Pathfinder<T> where T : INode {
         protected event Action<T> OnInit;
         protected event Action<T> OnSearch;
 
