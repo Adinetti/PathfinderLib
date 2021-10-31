@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
+using PathfinderLib;
 
 namespace PathfinderLib.Tests {
     [TestFixture()]
