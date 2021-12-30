@@ -3,7 +3,7 @@
 namespace PathfinderLib {
     [Serializable]
     public class ASearch<T> : DSearch<T> where T : INode {
-        public ASearch() : base() {
+        public ASearch(IPQueue<T> pQueue) : base(pQueue) {
             OnSearch += SearchPath;
         }
 

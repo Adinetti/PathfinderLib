@@ -4,16 +4,17 @@ using System.Collections.Generic;
 namespace PathfinderLib {
     [Serializable]
     public class DSearch<T> : Pathfinder<T> where T : INode {
-        [NonSerialized] protected PQueue<T> fronter;
+        [NonSerialized] protected IPQueue<T> fronter;
         protected Dictionary<T, int> pathcost;
 
-        public DSearch() {
+        public DSearch(IPQueue<T> pQueue) : base() {
+            fronter = pQueue;            
             OnInit += Init;
             OnSearch += SearchPath;
         }
 
         protected void Init(T start) {
-            fronter = new PQueue<T>();
+            fronter.Clear();
             fronter.Enqueue(start, 0);
             pathcost = new Dictionary<T, int> {
                 [start] = 0

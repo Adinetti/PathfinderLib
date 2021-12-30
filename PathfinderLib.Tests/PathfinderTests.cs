@@ -1,12 +1,9 @@
-﻿using AutoFixture;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
-using System.Collections.Generic;
-using PathfinderLib;
 
 namespace PathfinderLib.Tests {
-    [TestFixture()]
-    class PathfinderTests {
+    [TestFixture]
+    public class PathfinderTests {
         private IAgent _agent;
         private BFS<INode> _BFS;
         private DSearch<INode> _dSearch;
@@ -22,8 +19,8 @@ namespace PathfinderLib.Tests {
         public void Setup() {
             _agent = new Mock<IAgent>().Object;
             _BFS = new BFS<INode>();
-            _dSearch = new DSearch<INode>();
-            _aSearch = new ASearch<INode>();
+            _dSearch = new DSearch<INode>(new PQueue<INode>());
+            _aSearch = new ASearch<INode>(new PQueue<INode>());
 
             _nodeAtoBC = CreateNode(1, true);
             _nodeBtoAC = CreateNode(1, true);

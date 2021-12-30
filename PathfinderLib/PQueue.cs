@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PathfinderLib {
     [Serializable]
-    public class PQueue<T> where T : INode {
+    public class PQueue<T> : IPQueue<T> where T : INode {
         private List<Tuple<T, float>> _elements;
 
         public int Count => _elements.Count;

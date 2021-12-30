@@ -12,13 +12,16 @@ namespace PathfinderLib {
         protected IAgent agent;
         protected IGraph<T> graph;
 
-        public List<T> Search(IAgent agent, T start, T end, IGraph<T> graph) {
-            this.agent = agent;
+        protected Pathfinder() {
+            parents = new Dictionary<T, T>();
             path = new List<T>();
+        }
+
+        public List<T> Search(IAgent agent, T start, T end, IGraph<T> graph) {
+            path.Clear();
+            parents.Add(start, start);
+            this.agent = agent;
             this.graph = graph;
-            parents = new Dictionary<T, T> {
-                [start] = start
-            };
             if (OnInit != null && OnSearch != null) {
                 OnInit(start);
                 OnSearch(end);
